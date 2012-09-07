@@ -145,4 +145,7 @@ cd ../..
 
 rm -r down_git  # rm -r path 可以删除非空的文件夹
 
+# 差点忘了，还有一个不错的github学习网页: http://www.worldhello.net/gotgithub/index.html
+
+
 
