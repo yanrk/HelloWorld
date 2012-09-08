@@ -4,6 +4,7 @@ Git图解: http://marklodato.github.com/visual-git-guide/index-zh-cn.html
 
 git add files # 把当前文件放入缓冲区(索引)
 git add * # 把所有修改过的文件放入缓冲区(索引)
+git rm files # 从缓冲区(索引)删除files
 git commit # 给缓冲区(索引)生成快照并提交
 git reset -- files # 用来撤销最后一次git add files
 git reset # 撤销所有缓冲区(索引)文件
