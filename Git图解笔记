@@ -1,0 +1,44 @@
+Git图解: http://marklodato.github.com/visual-git-guide/index-zh-cn.html
+
+笔记:
+
+git add files # 把当前文件放入缓冲区(索引)
+git add * # 把所有修改过的文件放入缓冲区(索引)
+git commit # 给缓冲区(索引)生成快照并提交
+git reset -- files # 用来撤销最后一次git add files
+git reset # 撤销所有缓冲区(索引)文件
+git checkout -- files # 把文件从缓冲区(索引)复制到工作目录，用来丢弃本地修改
+
+git commit -a # 相当于运行git add *，再运行git commit
+git commit files # 相当于运行git add files，再运行git commit
+git checkout HEAD -- files # 回滚到最后一次提交
+
+git diff da985 b325c # 对比da985与b325c两次提交处的差异
+git diff maint # 对比maint分支与当前工作目录两处的差异
+git diff # 对比缓冲区与当前工作目录两处的差异
+git diff HEAD # 对比HEAD与当前工作目录两处的差异
+git diff --cached # 对比HEAD与缓冲区两处的差异
+
+git commit --amend # 用当前提交的父节点(HEAD~)进行一次新提交(变成新的HEAD)，旧的提交(原HEAD)会被取消
+
+git checkout HEAD~ foo.c # 把节点HEAD~(当前提交节点的父节点)的文件foo.c复制到工作目录并且生成索引(缓冲区)，注意当前分支没有变化
+git checkout maint # 切换到maint分支，同时把缓冲区(索引)和工作目录切换到那个分支对应的状态
+git checkout master~3 # 切换到一个匿名分支(detached HEAD)，master~3: master分支所指节点的曾祖父节点
+git checkout -b name # 创建一个新的分支
+
+git reset HEAD~3 # 将当前分支指向另一个位置(当前分支所指节点的曾祖父节点)，另有如下选项:
+    # --hard: 更新分支位置的同时，更新缓冲区(索引)和工作目录
+    # --soft: 不更新缓冲区(索引)
+    # 如果没有给出提交点的版本号，那么默认用HEAD，即: git reset代表着git reset HEAD
+
+git reset -- files # 如果给了文件名(或者-p选项)，那么工作效果和带文件名的checkout差不多，不同的是: 这里不会更新工作目录
+
+git cherry-pick 2c33a # "复制"一个节点2c33a，并将其在当前分支做一次完全一样的新提交
+
+
+git rebase master # 在master分支上重演当前分支(HEAD指向)的历史，提交历史是线性的；本质上，这是线性化的自动的cherry-pick
+git rebase --onto master 169a6 # 使用--onto选项限制回滚范围；在master分支上重演当前分支从169a6以来的最近几个提交(不包含169a6)
+git rebase --interactive # 更方便地完成一些复杂操组，比如丢弃、重排、修改、合并提交
+
+git rebase更多细节: http://www.kernel.org/pub/software/scm/git/docs/git-rebase.html#_interactive_mode
+
